@@ -1,7 +1,7 @@
 Summary:	Lightweight C library which eases the writing of UNIX daemons
 Name:		libdaemon
 Version:	0.14
-Release:	3
+Release:	4
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://0pointer.de/lennart/projects/libdaemon/%{name}-%{version}.tar.gz
@@ -36,7 +36,8 @@ libdaemon.
 %{__autoheader}
 %{__automake}
 %configure \
-	--disable-lynx \
+	--disable-lynx		\
+	--disable-silent-rules	\
 	--disable-static
 %{__make}
 
@@ -45,6 +46,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -61,7 +64,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libdaemon.so
-%{_libdir}/libdaemon.la
 %{_includedir}/%{name}
 %{_pkgconfigdir}/*.pc
 
